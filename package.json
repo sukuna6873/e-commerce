@@ -1,0 +1,12 @@
+{
+  "name": "workspace-cli-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "cline": "3.0.68"
+  },
+  "overrides": {
+    "simple-git": "4.0.2"
+  }
+}
