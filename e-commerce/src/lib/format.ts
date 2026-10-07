@@ -1,8 +1,10 @@
 /** Formatting helpers. All money in the app is integer cents to avoid float drift. */
 
-const currency = new Intl.NumberFormat("en-US", {
+const currency = new Intl.NumberFormat("en-IN", {
   style: "currency",
-  currency: "USD",
+  currency: "INR",
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
 });
 
 export function formatPrice(cents: number): string {

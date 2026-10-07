@@ -20,6 +20,8 @@ export const NS = {
   session: "session",
   addresses: "addresses",
   products: "products",
+  /** Admin bearer token + profile, separate from the shopper session. */
+  adminSession: "admin-session",
 } as const;
 
 export type Namespace = (typeof NS)[keyof typeof NS];

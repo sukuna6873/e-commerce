@@ -2,12 +2,14 @@ import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 
 import { StoreProvider, useStore } from "./store/StoreContext";
+import { AdminAuthProvider } from "./store/AdminAuthContext";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { CartDrawer } from "./components/CartDrawer";
 import { CompareTray } from "./components/CompareTray";
 import { Toaster } from "./components/Toaster";
 import { RedirectIfAuthed, RequireAuth } from "./components/guards";
+import { RedirectIfAdminAuthed, RequireAdminAuth } from "./components/adminGuards";
 
 import { HomePage } from "./pages/HomePage";
 import { CatalogPage } from "./pages/CatalogPage";
@@ -33,6 +35,8 @@ import { AdminOverviewPage } from "./pages/admin/AdminOverviewPage";
 import { AdminProductsPage } from "./pages/admin/AdminProductsPage";
 import { AdminInventoryPage } from "./pages/admin/AdminInventoryPage";
 import { AdminOrdersPage } from "./pages/admin/AdminOrdersPage";
+import { AdminLoginPage } from "./pages/admin/AdminLoginPage";
+import { AdminRegisterPage } from "./pages/admin/AdminRegisterPage";
 
 /** Restores scroll position on navigation, the way a page-based site would. */
 function ScrollToTop() {
@@ -90,11 +94,28 @@ function Shell() {
           </Route>
 
           <Route
+            path="/admin/login"
+            element={
+              <RedirectIfAdminAuthed>
+                <AdminLoginPage />
+              </RedirectIfAdminAuthed>
+            }
+          />
+          <Route
+            path="/admin/register"
+            element={
+              <RedirectIfAdminAuthed>
+                <AdminRegisterPage />
+              </RedirectIfAdminAuthed>
+            }
+          />
+
+          <Route
             path="/admin"
             element={
-              <RequireAuth adminOnly>
+              <RequireAdminAuth>
                 <AdminLayout />
-              </RequireAuth>
+              </RequireAdminAuth>
             }
           >
             <Route index element={<AdminOverviewPage />} />
@@ -117,7 +138,9 @@ function Shell() {
 export default function App() {
   return (
     <StoreProvider>
-      <Shell />
+      <AdminAuthProvider>
+        <Shell />
+      </AdminAuthProvider>
     </StoreProvider>
   );
 }

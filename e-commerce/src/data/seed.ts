@@ -73,11 +73,11 @@ export const SEED_ADDRESSES: Address[] = [
   },
 ];
 
-export const FREE_SHIPPING_THRESHOLD = 15000;
+export const FREE_SHIPPING_THRESHOLD = 1500000; // ₹15,000
 
 /** Orders above this subtotal ship free; below it, small orders still ship free. */
-const SMALL_ORDER_CUTOFF = 7500;
-const SMALL_ORDER_SHIPPING = 899;
+const SMALL_ORDER_CUTOFF = 750000; // ₹7,500
+const SMALL_ORDER_SHIPPING = 10000; // ₹100
 
 export function shippingFor(subtotal: number): number {
   if (subtotal === 0) return 0;
@@ -85,9 +85,9 @@ export function shippingFor(subtotal: number): number {
   return subtotal >= SMALL_ORDER_CUTOFF ? 0 : SMALL_ORDER_SHIPPING;
 }
 
-/** 8.75% — a realistic combined rate. */
+/** 18% — standard GST rate for electronics in India. */
 export function taxFor(subtotal: number): number {
-  return Math.round(subtotal * 0.0875);
+  return Math.round(subtotal * 0.18);
 }
 
 interface OrderDraft {
